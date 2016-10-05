@@ -1,0 +1,14 @@
+[hpddLustreserver]
+name=CentOS-$releasever - Lustre
+baseurl=http://build.hpdd.intel.com/job/lustre-master/arch=x86_64%2Cbuild_type=server%2Cdistro=el6%2Cib_stack=inkernel/lastSuccessfulBuild/artifact/artifacts/
+gpgcheck=0
+
+[e2fsprogs]
+name=CentOS-$releasever - Ldiskfs
+baseurl=http://build.hpdd.intel.com/job/e2fsprogs-master/arch=x86_64%2Cdistro=el6/lastSuccessfulBuild/artifact/_topdir/RPMS/
+gpgcheck=0
+
+[hpddLustreclient]
+name=CentOS-$releasever - Lustre
+baseurl=http://build.hpdd.intel.com/job/lustre-master/arch=x86_64%2Cbuild_type=client%2Cdistro=el6%2Cib_stack=inkernel/lastSuccessfulBuild/artifact/artifacts/
+gpgcheck=0
