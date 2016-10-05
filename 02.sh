@@ -36,3 +36,5 @@ mkfs.lustre --ost --backfstype=zfs --index=0 --mgsnode=${MyIP}@tcp --fsname lust
 mkfs.lustre --ost --backfstype=zfs --index=1 --mgsnode=${MyIP}@tcp --fsname lustrefs lustre-ost1/ost1 /var/tmp/lustre-ost-disk1
 
 zpool list
+
+systemctl start lustre
