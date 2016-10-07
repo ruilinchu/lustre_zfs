@@ -22,12 +22,26 @@ luid=$(( $(hostname -s | cut -c7-) - 1 ))
 
 if [[ $luid == 0 ]]; then
     dd if=/dev/zero of=/var/tmp/lustre-mgt-disk0 bs=1M count=1 seek=512
-    mkfs.lustre --mgs --backfstype=zfs lustre-mgt0/mgt0 /var/tmp/lustre-mgt-disk0
+    dd if=/dev/zero of=/var/tmp/lustre-mgt-disk1 bs=1M count=1 seek=512
+    mkfs.lustre --mgs --backfstype=zfs lustre-mgt0/mgt0 mirror /var/tmp/lustre-mgt-disk0 /var/tmp/lustre-mgt-disk1
 fi
 
 dd if=/dev/zero of=/var/tmp/lustre-mdt-disk0 bs=1M count=1 seek=512
-mkfs.lustre --mdt --backfstype=zfs --index=$luid --mgsnode=${MGSIP}@tcp --fsname lustrefs lustre-mdt$luid/mdt$luid /var/tmp/lustre-mdt-disk0
-mkfs.lustre --ost --backfstype=zfs --index=$luid --mgsnode=${MGSIP}@tcp --fsname lustrefs lustre-ost$luid/ost$luid raidz1 /dev/sdb /dev/sdc /dev/sdd
+dd if=/dev/zero of=/var/tmp/lustre-mdt-disk1 bs=1M count=1 seek=512
+mkfs.lustre --mdt --backfstype=zfs \
+	    --index=$luid \
+	    --mgsnode=${MGSIP}@tcp \
+	    --fsname lustrefs \
+	    lustre-mdt$luid/mdt$luid \
+	    mirror \
+	    /var/tmp/lustre-mdt-disk0 /var/tmp/lustre-mdt-disk1
+mkfs.lustre --ost --backfstype=zfs \
+	    --index=$luid \
+	    --mgsnode=${MGSIP}@tcp \
+	    --fsname lustrefs \
+	    lustre-ost$luid/ost$luid \
+	    raidz1 \
+	    /dev/sdb /dev/sdc /dev/sdd
 
 zpool list
 
