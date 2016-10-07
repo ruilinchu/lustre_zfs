@@ -1,0 +1,17 @@
+[mgs]
+server1
+
+[mds]
+server[1:3]
+
+[mdt]
+server[1:3]
+
+[oss]
+server[1:3]
+
+[ost]
+server[1:3]
+
+[client]
+client[1:2]
