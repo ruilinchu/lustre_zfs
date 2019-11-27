@@ -3,6 +3,8 @@ centos7.2
 lustre 2.8
 zfs 0.6.4.2
 
+From Lustre wkik: when using the Lustre ldiskfs OSD only, it will be necessary to patch the kernel before building Lustre.  The Lustre ZFS OSD and the Lustre client code do not require patches to the kernel.
+
 server
 
 [root@test2 vagrant]# zpool list
